@@ -1,3 +1,5 @@
+before_install:
+  - chmod +x frontend.sh functions.sh
 language: node_js
 node_js:
 - node
