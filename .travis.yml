@@ -9,11 +9,10 @@ deploy:
   secret_access_key:
     secure: 3S0Hl0c8LPoMzp6UXrkLXX0apHY7ads+2aX806dC9DymLF5Z5CzXlGR9/WXgBImnjO0T90qas0AtoNsZCubj/Vlj5PPPl2AS/DGOJeV4HFTwWlFI5bU4jp7lpwmbrUoHbHzygDf+LfktBOGaFjUGxPNGHC42LCLVCOT34YiYux2vyD0OsEFEiiQ1af9SogEZfWqDNMbjs/8nyo+7vkV6+HoFS2VYk0g3o/Nbs6nQztERMWPSa2aSg0Th2hWelA7b+XKRHsiThAjI5ZwIJbQ+6hELubQFkCKQJtNmRXWa5UC3o8v063uWFtCKtzsbw3jR1MLL8tbY2IG/C5z6lENp2yn4dn4F3/36IwrMlcMer+dX9ZDi6xZ4WO+XxUy60Oq1yk9P21hDkVzk0/Wt+RkBjKLvjUWGe+axkyRQkU2bzUDpNBPeXbQGffvgXcR6KY4DfOPKdUGkDh0TXGAmx3vNoICMB5ZT13388Q5CmEIckZPWDnoLg2LVVxmOk3jmewhQwl5kYkMXTyug6dUoEdAhnfXZa9zhgSljhxxZUBrXayGD+XM2t4jO7/MJVmrARafYBoOXeI6NALno+Qpz15T4uDFWcJ9fmknU2xDa2RFo+svygPStc0eIud1er2XHsDW4SBoz5MSPmpxhZNwugj1AVLIJfKOkogVeegiqy7PJ2kU=
   bucket: seivom-bucket
-  skip-cleanup: true
+  skip_cleanup: true
   acl: bucket_owner_full_control
   on:
     repo: rd37011/seivom
-  skip_cleanup: 'true'
 jobs:
   include:
   - stage: deploy_frontend
