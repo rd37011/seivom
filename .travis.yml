@@ -5,9 +5,9 @@ node_js:
 - node
 deploy:
   provider: s3
-  access_key_id: AKIAIDE6737VJ7XJAN6A
+  access_key_id: $AWS_ACCESS_KEY
   secret_access_key:
-    secure: I9Ky5Wp2GIhUS5dIZIoIA5vD9hhs5nyzhFAZVm+lmK1PdnjX6j1swJRlN8bR9xvfZmEGw7EUB3x9RegbVgUEyvJgtixMoYTjWISuuw/PGJpsYfQ09CO0+fpuiwc/Su6kA3jbMt7WTqblzvomeIaX0Z+RqkTdcg7kALWfGzaioPH69WSFgM+0vxmSlMiYLYukd12KoJEN0I0ax8/177ful1eox+J0fU5qxGaULSMRKA+eZR4RaJHIHkbbK/pZ/cWVRjHAaIRjhGC2h5fECvYBZHGMBaTP7f5xzlxMCHf2vWYZhIZVDcAKACFRW0/irM6XGOdg9/iEFZQBaE04Qx5K6RhS5+DghZPG4DCD7HGZaw6XBIP1by0L9Ws5BqTSZ1qM9y4B2xZg5qaHH9OUvYtjB2w1IDZMDK5NKPlveGjAQp/X6z+82yn2jxxV0s4fPBuIdyWyBcV/ua7KBod7QuhkyJBNtUMYTFKIQwYcyJSbx6QES9tx7YQg6JI8GCOUMgI7s7Jr0LkkUTx4hYxh7VyArRHge4GY9DiPHlNe7RVLG1e9AM5nolpuVRdD50/HbKCdRepmsw1SdTcouOeRX7rQhzBrAzSN6cjkrXzucZqcRUhJY2Sp+sTsd+kg0YoUbFdcwy4Gru2cckpTdN++Jx9Hod6SQJ65MyxF8l8f41TV4kk=
+    secure: $AWS_SECRET_KEY
   bucket: seivom-bucket
   acl: bucket_owner_full_control
   on:
