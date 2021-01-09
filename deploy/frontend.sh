@@ -1,5 +1,5 @@
 ## navigate into dir 
-cd src/ui/
+cd ../src/
 
 ## build
 yarn install
