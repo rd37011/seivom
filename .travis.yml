@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- node
+deploy:
+  provider: s3
+  access_key_id: "AKIAIDE6737VJ7XJAN6A"
+  secret_access_key:
+    secure: "072053xthlo3WXLRkZX7Buu+mI9jmvOX6YDJKP3+vdh36f7YF0l0raysym4NAH5uREc30bHr/m2BucJirsDTbAMHbQUkHlwIay9FvfafTqgGMaT/InpTxZfzyuiYfB/RvYekFITw90WkiD23DkRDgKJHcwxlB/V7a6n83Y4PqnZSwxD8Qrv3VZj31KGw/1SWUTLBGjb2lWoDutxkPsBYyJoK9b2ph7dtjkzE0WnV3UMS5LSw1f8ijolk1PYM2kAKcR8hX/3xHRCzZeRhxtASJ5AJlIO7g8eKqSijFEBtswwoItrXu6l5ZPMpDfywRRlqiibJDspf3lMowGI3+/4Vxjay7EmPmVRvFlvHhnWTu6EYrGr5mFw2iLo9KqMSTzwBVjygTTkMZe20f6rx2mPf1WpU50JHVOSwHDbzErv8DzurFy79Zy0gK/6D1SJJqxayrMG8B6afI9vSq9ZClBSF4ijPfJo1lQontgFAkJirNi4zFe4xjKQyxmKuihnVqQQWjXWTVhaxgizXY3P9Rd7mPk95ha8eA+6XHvLEFEgV501yzwuGOETQjJwXAyAuPeRxE7fZZfC6zmiYvoHUBMsafYryEzVrz/Fp+/egSzx82mQCNxE3R/hatXs8SCWe5R0GY3umgUo1hm1i7C+YxtGbnLjofB6o4UL3/y1Z+vmg3HA="
+  bucket: "seivom-bucket"
+  skip_cleanup: true
+
+jobs:
+  include:
+  - stage: deploy_frontend
+    script: "./deploy/frontend.sh"
+  - stage: deploy_functions
+    script: "./deploy/functions.sh"
