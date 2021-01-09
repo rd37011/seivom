@@ -6,7 +6,7 @@ yarn install
 yarn build
 
 ## navigate to built code
-cd dist/
+## do we need this?
 
 ## S3
 ## TODO
