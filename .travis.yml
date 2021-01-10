@@ -5,9 +5,9 @@ node_js:
 - node
 deploy:
   provider: s3
-  access_key_id: AKIAID2TD66U23OOZUVA
+  access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key:
-    secure: 3VrxYCSXFxqchtMvsMh2sJbbG/DhtFP0+nbFP5QI8FzdrpA6uyNeXWZ/FMVMaUaBOUM3rSif2eIPOdc0ZX4ue1UvF5RKD7iedgEBiLENN9x/+Nktc60efM3KgTGf3TtPNrFxMJtQauK0xb7bFAf4ucK0MOWs59G8ZX5pbJVGhQS1n6bwsUFWbnrweQU76MX/3CbktSriuoM708OL3cmqyXztuqWILb6Nj9m9tBV3TRgNL2IIWuYDWjw8+SDwfeLnGc7i2cBB29st7pyOWpTJuC8ODdsGwVk3qU4XZHlzWlQ7U1ij9Wa24wTE9BDnYf/jsG9AdTMf4QuhZ7FkXcvb7QqlfwNepY0d+P8dv11PpljkEj0lbCYaY35obJiPmvH03WYqa8wf97a+QwMfmfQjJA+euMNCp/h+wZQwDjxMhZvHOKz3KojnKQybtCtkFgEoiy2LwcNi9C8WcoJtlxM7qZLqBZhQeykB3b+qhOA+MZE8gYwSjdhHoE7Nx/PAD/Ux/g/Zo1x3KP8wFEOnKpla9o/D1hVrVlbZA3lbQTUtHBGJ3Rcs6+/uDS/Xz4zo5jvLQjr+PRFaUhQJKil5jI3YuTkoYbAf1QgWQitoViJZnTQEqZc18wYS9cRY6EQxbZmO6Jkt8EwI7S9BbblFXpzKf5JjieM8YO67QG4P7xunR1A=
+    secure: $AWS_SECRET_ACCESS_KEY
   bucket: seivom-bucket
   skip_cleanup: true
   local_dir: "./dist"
