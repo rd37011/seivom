@@ -1,8 +1,8 @@
 ## build
-yarn add serverless
+cd server/
 
 ## nav into serverless functions
-## cd functions
+
 
 #deploy to AWS acct
 ## TODO

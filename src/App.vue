@@ -1,61 +1,69 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <v-system-bar app>
-        <v-spacer></v-spacer>
+    <v-app>
+      <div id="nav">
+        <v-system-bar app>
+          <v-spacer></v-spacer>
 
-        <v-icon>mdi-square</v-icon>
+          <v-icon>mdi-square</v-icon>
 
-        <v-icon>mdi-circle</v-icon>
+          <v-icon>mdi-circle</v-icon>
 
-        <v-icon>mdi-triangle</v-icon>
-      </v-system-bar>
+          <v-icon>mdi-triangle</v-icon>
+        </v-system-bar>
 
-      <v-app-bar app>
-        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-app-bar app>
+          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-        <v-toolbar-title>Seivom</v-toolbar-title>
-        <div class="branding">
-          <router-link to="/home">Home</router-link> |
-          <router-link to="/about">About</router-link>
-        </div>
-        <v-btn v-if="authenticated" @click.stop="logout" id="logout-button"
-          >Logout</v-btn
-        >
-        <v-btn v-else @click.stop="login" id="login-button">Login</v-btn>
-      </v-app-bar>
-
-      <v-navigation-drawer v-model="drawer" absolute temporary>
-        <v-list nav dense>
-          <v-list-item-group
-            v-model="group"
-            active-class="deep-purple--text text--accent-4"
+          <v-toolbar-title>Seivom</v-toolbar-title>
+          <div class="branding">
+            <router-link to="/home">Home</router-link> |
+            <router-link to="/about">About</router-link> |
+            <router-link to="/register">Register</router-link>
+          </div>
+          <v-btn v-if="authenticated" @click.stop="logout" id="logout-button"
+            >Logout</v-btn
           >
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-home</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Home</v-list-item-title>
-            </v-list-item>
+          <v-btn v-else @click.stop="loginModalShow = true" id="login-button"
+            >Login</v-btn
+          >
+        </v-app-bar>
 
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-account</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Account</v-list-item-title>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
-      <div ref="loginDetailsModal">
-        <loginDetailsModal v-model="login" />
+        <v-navigation-drawer v-model="drawer" absolute temporary>
+          <v-list nav dense>
+            <v-list-item-group
+              v-model="group"
+              active-class="deep-purple--text text--accent-4"
+            >
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-home</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Home</v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-account</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Account</v-list-item-title>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-navigation-drawer>
+        <v-content>
+          <router-view></router-view>
+        </v-content>
+        <div ref="loginDetailsModal">
+          <loginDetailsModal v-model="loginModalShow" />
+        </div>
       </div>
-    </div>
-    <router-view />
+    </v-app>
   </div>
 </template>
 <script>
-import loginDetailsModal from "./views/loginDetailsModal";
+import loginDetailsModal from "./components/loginDetailsModal";
+// import landingPage from "./views/landingPage";
 export default {
   name: "App",
   data: () => ({
@@ -66,11 +74,24 @@ export default {
     loginModalShow: false
   }),
   methods: {
-    login() {},
-    async logout() {}
+    async isAuthenticated() {
+      return this.authenticated;
+    },
+    login() {
+      // this.$auth.signInWithRedirect();
+    },
+    async logout() {
+      // await this.$auth.logout();
+      // await this.isAuthenticated();
+      if (this.$route.path !== "/") this.$router.push({ path: "/" });
+    }
   },
+  // created() {
+  //   this.isAuthenticated();
+  // },
   components: {
     loginDetailsModal
+    // landingPage
   }
 };
 </script>

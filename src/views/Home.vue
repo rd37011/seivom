@@ -70,12 +70,14 @@
   </v-app>
 </template>
 <script>
-import movieDetailsModal from "./movieDetailsModal";
+import movieDetailsModal from "../components/movieDetailsModal";
 export default {
   data: () => ({
     show: false,
     detailsModalShow: false,
-    drawer: null
+    drawer: null,
+    isUser: false,
+    isAdmin: false
   }),
   components: {
     movieDetailsModal
