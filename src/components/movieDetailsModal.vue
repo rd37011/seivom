@@ -9,25 +9,23 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <!-- Title, Plot, Cast & Crew, Genre, Release Date, Language, Collective Ratin -->
-                Shawshank Redemption
+                {{ moviedetails.title }}
               </v-col>
               <v-col cols="12">
-                Two imprisoned men bond over a number of years, finding solace
-                and eventual redemption through acts of common decency.
+                {{ moviedetails.plot }}
               </v-col>
               <v-col cols="12">
-                Directed by Frank Darabont. Written by Stephen King (short story
-                "Rita Hayworth and Shawshank Redemption"), Frank Darabont
-                (screenplay) Starring Tim Robbins, Morgan Freeman, Bob Gunton
+                {{ moviedetails.cast }}
               </v-col>
-              <v-col cols="12" sm="6" md="4">Drama</v-col>
-              <v-col cols="12" sm="6" md="4">Released 14 October 1994</v-col>
-              <v-col cols="12" sm="6" md="4">English</v-col>
+              <v-col cols="12" sm="6" md="4">{{ moviedetails.genre }}</v-col>
+              <v-col cols="12" sm="6" md="4">{{
+                moviedetails.release_date
+              }}</v-col>
+              <v-col cols="12" sm="6" md="4">{{ moviedetails.language }}</v-col>
               <v-col cols="12" sm="6" md="4"
                 >User Ratings
                 <v-rating
-                  v-model="rating"
+                  v-model="moviedetails.rating"
                   color="yellow darken-3"
                   background-color="grey darken-1"
                   empty-icon="$ratingFull"
@@ -61,13 +59,15 @@ export default {
   name: "movieDetailsModal",
   props: {
     //   obj: Object,
+    moviedetails: Object,
     value: Boolean
   },
   components: {
     editDetailsModal
   },
   data: () => ({
-    editModalShow: false
+    editModalShow: false,
+    rating: 0
   }),
   computed: {
     show: {
@@ -81,7 +81,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style>
 .display {
   padding-left: -50px;
 }

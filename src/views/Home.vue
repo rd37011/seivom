@@ -1,49 +1,53 @@
 <template>
   <v-app id="inspire">
-    <v-main class="grey lighten-2">
-      <v-container>
-        <v-row class="rows">
-          <template v-for="n in 4">
-            <!-- <v-col :key="n" class="mt-2" cols="auto">
+    <v-container>
+      <!-- <v-row class="rows">
+          <template v-for="n in 4"> -->
+      <!-- <v-col :key="n" class="mt-2" cols="auto">
               <strong>Category {{ n }}</strong>
             </v-col> -->
 
-            <v-col v-for="j in 4" :key="`${n}${j}`" cols="auto">
-              <v-card class="mx-auto" max-width="344">
-                <v-img
-                  src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                  height="200px"
-                ></v-img>
+      <!-- <v-col v-for="j in 4" :key="`${n}${j}`" cols="auto"> -->
+      <v-flex d-flex>
+        <v-layout wrap>
+          <v-flex md4 v-for="(movie, index) in fetchMovies()" :key="index">
+            <v-card class="mx-auto" max-width="344">
+              <v-img
+                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                height="200px"
+              ></v-img>
 
-                <v-card-title>
-                  TITLE
-                </v-card-title>
+              <v-card-title>
+                {{ movie.title }}
+              </v-card-title>
 
-                <v-card-subtitle>
-                  GENRE
-                </v-card-subtitle>
-                <v-card-subtitle>
-                  RATING
-                </v-card-subtitle>
+              <v-card-subtitle>
+                {{ movie.genre }}
+              </v-card-subtitle>
+              <v-card-subtitle>
+                {{ movie.rating }}
+              </v-card-subtitle>
 
-                <v-card-actions>
-                  <v-btn
-                    color="orange lighten-2"
-                    text
-                    @click.stop="detailsModalShow = true"
-                  >
-                    Explore
-                  </v-btn>
+              <v-card-actions>
+                <v-btn
+                  color="orange lighten-2"
+                  text
+                  @click.stop="
+                    (detailsModalShow = true), (movieDetails = movie)
+                  "
+                >
+                  Details
+                </v-btn>
 
-                  <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
 
-                  <v-btn icon @click="show = !show">
-                    <v-icon>{{
-                      show ? "mdi-chevron-up" : "mdi-chevron-down"
-                    }}</v-icon>
-                  </v-btn>
-                </v-card-actions>
-
+                <v-btn icon @click="show = !show">
+                  <v-icon>{{
+                    show ? "mdi-chevron-up" : "mdi-chevron-down"
+                  }}</v-icon>
+                </v-btn>
+              </v-card-actions>
+              <!-- 
                 <v-expand-transition>
                   <div v-show="show">
                     <v-divider></v-divider>
@@ -57,34 +61,67 @@
                       I've got to find a way to escape.
                     </v-card-text>
                   </div>
-                </v-expand-transition>
-              </v-card>
-            </v-col>
+                </v-expand-transition> -->
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+
+      <!-- </v-col>
           </template>
-        </v-row>
-      </v-container>
-    </v-main>
+        </v-row> -->
+    </v-container>
     <div ref="detailsDialog">
-      <movieDetailsModal v-model="detailsModalShow" />
+      <movieDetailsModal
+        v-model="detailsModalShow"
+        :moviedetails="movieDetails"
+      />
     </div>
   </v-app>
 </template>
 <script>
 import movieDetailsModal from "../components/movieDetailsModal";
+import { mapGetters } from "vuex";
+import { GET_ALL_MOVIES, GET_MOVIE } from "../store/index.js";
 export default {
   data: () => ({
     show: false,
     detailsModalShow: false,
     drawer: null,
     isUser: false,
-    isAdmin: false
+    isAdmin: false,
+    movies: [],
+    movieDetails: {},
+    curr_index: 0
   }),
   components: {
     movieDetailsModal
   },
+  computed: {
+    fetchMovies() {
+      // this.movies = this.getMovies;
+      return this.getMovies;
+    },
+    current_movie() {
+      return this.movies[this.curr_index];
+    }
+  },
   methods: {
+    ...mapGetters({
+      getMovies: GET_ALL_MOVIES,
+      getMovie: GET_MOVIE
+    }),
     showDialog() {
       this.$refs.detailsDialog.show();
+    },
+    detailsHandler(index) {
+      this.curr_index = index;
+      this.detailsModalShow = true;
+      console.log(index);
+    },
+    created() {
+      // this.data.movieDetails = movies[curr_index];
+      console.log("movies: ", this.movies);
     }
   }
 };

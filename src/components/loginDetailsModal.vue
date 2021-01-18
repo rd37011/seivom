@@ -27,11 +27,12 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="info" text @click="register">
-            CREATE AN ACCOUNT
-          </v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="info" :large="$vuetify.breakpoint.smAndUp" @click.stop="login">
+          <v-btn
+            color="info"
+            :large="$vuetify.breakpoint.smAndUp"
+            @click.stop="login"
+          >
             Login
           </v-btn>
         </v-card-actions>
@@ -41,7 +42,12 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { ADD_JWT, AUTHENTICATE_USER, GET_JWT } from "../store/index.js";
+import {
+  ADD_JWT,
+  AUTHENTICATE_USER,
+  REGISTER_USER,
+  GET_JWT
+} from "../store/index.js";
 export default {
   name: "loginDetailsModal",
   props: {
@@ -66,7 +72,8 @@ export default {
   methods: {
     ...mapActions({
       addJwt: ADD_JWT,
-      authenticateUser: AUTHENTICATE_USER
+      authenticateUser: AUTHENTICATE_USER,
+      addUser: REGISTER_USER
     }),
     ...mapGetters({
       getJwt: GET_JWT
@@ -76,18 +83,19 @@ export default {
       if (this.password.length > 0) {
         this.$http
           .post("http://localhost:3000/login", {
-            username: this.username,
+            user_name: this.username,
             password: this.password
           })
           .then(response => {
             this.is_admin = response.data.user.is_admin;
-            // localStorage.setItem("user", JSON.stringify(response.data.user));
-            // localStorage.setItem("jwt", response.data.token);
-            this.authenticateUser();
+            const responseObj = { ...response.data };
+            this.authenticateUser(responseObj);
+            this.addUser(responseObj.user);
             this.addJwt(response.data.token);
 
             if (this.getJwt != null) {
               this.$emit("loggedIn"); // emits event here? maybe we can leverage store value to toggle auth
+              this.show = false;
               if (this.$route.params.nextUrl != null) {
                 this.$router.push(this.$route.params.nextUrl);
               } else {

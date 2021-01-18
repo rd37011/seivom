@@ -17,11 +17,15 @@
 
           <v-toolbar-title>Seivom</v-toolbar-title>
           <div class="branding">
+            <v-spacer></v-spacer>
             <router-link to="/home">Home</router-link> |
             <router-link to="/about">About</router-link> |
             <router-link to="/register">Register</router-link>
           </div>
-          <v-btn v-if="authenticated" @click.stop="logout" id="logout-button"
+          <v-btn
+            v-if="this.$store.state.isAuthenticated"
+            @click.stop="logout"
+            id="logout-button"
             >Logout</v-btn
           >
           <v-btn v-else @click.stop="loginModalShow = true" id="login-button"
@@ -51,9 +55,9 @@
             </v-list-item-group>
           </v-list>
         </v-navigation-drawer>
-        <v-content>
+        <v-main>
           <router-view></router-view>
-        </v-content>
+        </v-main>
         <div ref="loginDetailsModal">
           <loginDetailsModal v-model="loginModalShow" />
         </div>
@@ -63,26 +67,30 @@
 </template>
 <script>
 import loginDetailsModal from "./components/loginDetailsModal";
-// import landingPage from "./views/landingPage";
+import { mapGetters, mapActions } from "vuex";
+import { GET_JWT, GET_AUTH_STATUS, LOGOUT } from "./store/index.js";
 export default {
   name: "App",
   data: () => ({
     title: "Vue Groups",
-    authenticated: false,
     drawer: false,
     group: null,
     loginModalShow: false
   }),
   methods: {
-    async isAuthenticated() {
-      return this.authenticated;
+    ...mapGetters({
+      getJwt: GET_JWT,
+      getAuthStatus: GET_AUTH_STATUS
+    }),
+    ...mapActions({
+      clearUser: LOGOUT
+    }),
+    isAuthenticated() {
+      return this.getAuthStatus;
     },
-    login() {
-      // this.$auth.signInWithRedirect();
-    },
-    async logout() {
+    logout() {
       // await this.$auth.logout();
-      // await this.isAuthenticated();
+      this.clearUser(); // revokes JWT, deletes current user from local storage, toggles admin and auth
       if (this.$route.path !== "/") this.$router.push({ path: "/" });
     }
   },

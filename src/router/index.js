@@ -55,7 +55,9 @@ const router = new Router({
       beforeEnter: (to, from, next) => {
         next("/");
       },
-      meta: { requiresAuth: true }
+      meta: {
+        guest: true
+      }
     },
     // {
     //   path: "login/callback",
@@ -96,15 +98,15 @@ const router = new Router({
 // };
 // router.beforeEach(onAuthRequired);
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.requiresAuth) && to.path !== "/") {
     if (store.state.jwt === null) {
       next({
         path: "/",
         params: { nextUrl: to.fullPath }
       });
     } else {
-      console.log(store.state.user);
-      let user = JSON.parse(store.state.user);
+      // console.log(JSON.parse(store.state.user));
+      let user = store.state.user;
       if (to.matched.some(record => record.meta.is_admin)) {
         if (user.is_admin == 1) {
           next();

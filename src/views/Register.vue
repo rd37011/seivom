@@ -60,7 +60,12 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { ADD_JWT, AUTHENTICATE_USER, GET_JWT } from "../store/index.js";
+import {
+  ADD_JWT,
+  AUTHENTICATE_USER,
+  REGISTER_USER,
+  GET_JWT
+} from "../store/index.js";
 export default {
   props: ["nextUrl"],
   data() {
@@ -86,7 +91,8 @@ export default {
   methods: {
     ...mapActions({
       addJwt: ADD_JWT,
-      authenticateUser: AUTHENTICATE_USER
+      authenticateUser: AUTHENTICATE_USER,
+      addUser: REGISTER_USER
     }),
     ...mapGetters({
       getJwt: GET_JWT
@@ -108,7 +114,9 @@ export default {
             is_admin: this.checkbox
           })
           .then(response => {
-            this.authenticateUser();
+            const responseObj = { ...response.data };
+            this.authenticateUser(responseObj);
+            this.addUser(responseObj.user);
             this.addJwt(response.data.token);
 
             if (this.getJwt != null) {
