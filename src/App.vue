@@ -15,7 +15,7 @@
         <v-app-bar app>
           <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-          <v-toolbar-title>Seivom</v-toolbar-title>
+          <v-toolbar-title> </v-toolbar-title>
           <div class="branding">
             <v-spacer></v-spacer>
             <router-link to="/home">Home</router-link> |
@@ -69,6 +69,7 @@
 import loginDetailsModal from "./components/loginDetailsModal";
 import { mapGetters, mapActions } from "vuex";
 import { GET_JWT, GET_AUTH_STATUS, LOGOUT } from "./store/index.js";
+
 export default {
   name: "App",
   data: () => ({

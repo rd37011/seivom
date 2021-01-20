@@ -1,0 +1,45 @@
+{
+    "paths": [
+        {
+            "name": "/movies",
+            "lambdaFunction": "seivomLambda",
+            "privacy": {
+                "protected": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ],
+                "unauth": [
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/movies"
+        }
+    ],
+    "resourceName": "moviesApi",
+    "apiName": "moviesApi",
+    "functionArns": [
+        {
+            "lambdaFunction": "seivomLambda"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 1,
+        "authRoleName": "amplify-seivomapp-dev-175328-authRole",
+        "unAuthRoleName": "amplify-seivomapp-dev-175328-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "seivomLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

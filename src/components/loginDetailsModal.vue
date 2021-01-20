@@ -10,6 +10,7 @@
         <v-divider></v-divider>
         <v-card-text>
           <p>Sign in with your username and password:</p>
+          <p v-if="!is_correct">Incorrect Credentials. Please try again!</p>
           <v-form>
             <v-text-field
               outline
@@ -57,7 +58,8 @@ export default {
     username: "",
     password: "",
     response: {},
-    is_admin: false
+    is_admin: false,
+    is_correct: true
   }),
   computed: {
     show: {

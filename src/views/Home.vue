@@ -10,22 +10,19 @@
       <!-- <v-col v-for="j in 4" :key="`${n}${j}`" cols="auto"> -->
       <v-flex d-flex>
         <v-layout wrap>
-          <v-flex md4 v-for="(movie, index) in fetchMovies()" :key="index">
+          <v-flex md4 v-for="(movie, index) in getMovies()" :key="index">
             <v-card class="mx-auto" max-width="344">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="200px"
-              ></v-img>
+              <v-img :srcset="movie.image_url" height="200px"></v-img>
 
               <v-card-title>
                 {{ movie.title }}
               </v-card-title>
 
               <v-card-subtitle>
-                {{ movie.genre }}
+                {{ movie.info.genres }}
               </v-card-subtitle>
               <v-card-subtitle>
-                {{ movie.rating }}
+                {{ movie.info.year }}
               </v-card-subtitle>
 
               <v-card-actions>
@@ -41,7 +38,7 @@
 
                 <v-spacer></v-spacer>
 
-                <v-btn icon @click="show = !show">
+                <v-btn icon>
                   <v-icon>{{
                     show ? "mdi-chevron-up" : "mdi-chevron-down"
                   }}</v-icon>
@@ -81,8 +78,8 @@
 </template>
 <script>
 import movieDetailsModal from "../components/movieDetailsModal";
-import { mapGetters } from "vuex";
-import { GET_ALL_MOVIES, GET_MOVIE } from "../store/index.js";
+import { mapGetters, mapActions } from "vuex";
+import { GET_ALL_MOVIES, GET_MOVIE, FETCH_MOVIES } from "../store/index.js";
 export default {
   data: () => ({
     show: false,
@@ -98,10 +95,10 @@ export default {
     movieDetailsModal
   },
   computed: {
-    fetchMovies() {
-      // this.movies = this.getMovies;
-      return this.getMovies;
-    },
+    // fetchMovies() {
+    //   // this.movies = this.getMovies;
+    //   return this.getMovies;
+    // },
     current_movie() {
       return this.movies[this.curr_index];
     }
@@ -111,6 +108,9 @@ export default {
       getMovies: GET_ALL_MOVIES,
       getMovie: GET_MOVIE
     }),
+    ...mapActions({
+      fetchMovies: FETCH_MOVIES
+    }),
     showDialog() {
       this.$refs.detailsDialog.show();
     },
@@ -119,8 +119,8 @@ export default {
       this.detailsModalShow = true;
       console.log(index);
     },
-    created() {
-      // this.data.movieDetails = movies[curr_index];
+    async created() {
+      await this.fetchMovies();
       console.log("movies: ", this.movies);
     }
   }

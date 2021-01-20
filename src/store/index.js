@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { API } from "aws-amplify";
 
 // Getters
 export const GET_ALL_MOVIES = "GET_ALL_MOVIES";
@@ -25,6 +26,7 @@ export const AUTHENTICATE_USER = "AUTHENTICATE_USER";
 export const REGISTER_USER = "REGISTER_USER";
 export const ADD_JWT = "ADD_JWT";
 export const LOGOUT = "LOGOUT";
+export const FETCH_MOVIES = "FETCH_MOVIES";
 
 Vue.use(Vuex);
 
@@ -34,36 +36,12 @@ export default new Vuex.Store({
     isAuthenticated: false,
     jwt: null,
     isAdmin: false,
-    movies: [
-      {
-        id: 0,
-        title: "Shawshank Redemption",
-        plot:
-          "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-        cast:
-          'Directed by Frank Darabont. Written by Stephen King (short story /"Rita Hayworth and Shawshank Redemption/"), Frank Darabont (screenplay) Starring Tim Robbins, Morgan Freeman, Bob Gunton',
-        genre: "Drama",
-        rating: 4,
-        release_date: "Released 14 October 1994",
-        language: "English"
-      },
-      {
-        id: 1,
-        title: "Black Panther",
-        plot:
-          "After the death of his father, T'Challa returns home to the African nation of Wakanda to take his rightful place as king. When a powerful enemy suddenly reappears, T'Challa's mettle as king -- and as Black Panther -- gets tested when he's drawn into a conflict that puts the fate of Wakanda and the entire world at risk. Faced with treachery and danger, the young king must rally his allies and release the full power of Black Panther to defeat his foes and secure the safety of his people.",
-        cast:
-          "Directed by Ryan Coogler. Written by Ryan Coogler, Joe Robert Cole. Starring Chadwick Boseman, Michael B. Jordan",
-        genre: "Adventure, Fantasy, Action",
-        rating: 5,
-        release_date: "Released 16 Feb 2018",
-        language: "English"
-      }
-    ]
+    movies: null
   },
   getters: {
     // GET_MOVIES
     [GET_ALL_MOVIES]: state => {
+      console.log("payload in getter: ", state.movies);
       return state.movies;
     },
     [GET_MOVIE]: (state, index) => {
@@ -84,6 +62,7 @@ export default new Vuex.Store({
   },
   mutations: {
     [SET_MOVIE_DETAILS]: (state, payload) => {
+      console.log("payload in mutation: ", payload);
       state.movies = payload;
     },
     [SET_AUTH_STATUS]: (state, payload) => {
@@ -125,6 +104,16 @@ export default new Vuex.Store({
       currentMovies.splice(index, 1);
       // update details in API call. maybe another action
       commit("SET_MOVIE_DETAILS", currentMovies);
+    },
+    async [FETCH_MOVIES]({ commit }) {
+      try {
+        await API.get("moviesApi", "/movies").then(res => {
+          console.log("response: ", res);
+          commit("SET_MOVIE_DETAILS", res);
+        });
+      } catch (err) {
+        console.error(err);
+      }
     },
     [AUTHENTICATE_USER]({ commit }, payload) {
       // make API call to auth

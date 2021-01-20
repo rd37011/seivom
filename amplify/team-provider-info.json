@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-seivomapp-dev-175328-authRole",
+      "UnauthRoleArn": "arn:aws:iam::765879810763:role/amplify-seivomapp-dev-175328-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::765879810763:role/amplify-seivomapp-dev-175328-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-seivomapp-dev-175328-deployment",
+      "UnauthRoleName": "amplify-seivomapp-dev-175328-unauthRole",
+      "StackName": "amplify-seivomapp-dev-175328",
+      "StackId": "arn:aws:cloudformation:us-east-1:765879810763:stack/amplify-seivomapp-dev-175328/26b5e5c0-5aa9-11eb-93af-0e89978ed963",
+      "AmplifyAppId": "d36ojvqfwaawh6"
+    }
+  }
+}

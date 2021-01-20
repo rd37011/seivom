@@ -10,8 +10,10 @@
     "server": "node server/app"
   },
   "dependencies": {
+    "@aws-amplify/ui-vue": "^0.2.33",
     "@okta/okta-auth-js": "^4.6.0",
     "@okta/okta-vue": "^3.1.0",
+    "aws-amplify": "^3.3.14",
     "aws-sdk": "^2.824.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",

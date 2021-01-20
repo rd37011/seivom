@@ -8,24 +8,24 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12">
+              <!-- <v-col cols="12">
                 {{ moviedetails.title }}
               </v-col>
               <v-col cols="12">
-                {{ moviedetails.plot }}
+                {{ moviedetails.info.plot }}
               </v-col>
               <v-col cols="12">
-                {{ moviedetails.cast }}
+                {{ moviedetails.info.actors }}
+                Directed by {{ moviedetails.info.directors }}
               </v-col>
-              <v-col cols="12" sm="6" md="4">{{ moviedetails.genre }}</v-col>
+              <v-col cols="12" sm="6" md="4">{{ moviedetails.info.genre }}</v-col>
               <v-col cols="12" sm="6" md="4">{{
-                moviedetails.release_date
-              }}</v-col>
-              <v-col cols="12" sm="6" md="4">{{ moviedetails.language }}</v-col>
+                moviedetails.year
+              }}</v-col> -->
+              <v-col cols="12" sm="6" md="4">English</v-col>
               <v-col cols="12" sm="6" md="4"
                 >User Ratings
                 <v-rating
-                  v-model="moviedetails.rating"
                   color="yellow darken-3"
                   background-color="grey darken-1"
                   empty-icon="$ratingFull"
