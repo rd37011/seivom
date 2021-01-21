@@ -55,52 +55,6 @@ app.get("/movies", function(req, res) { //get all
   });
 });
 
-/*****************************************
- * HTTP Get method for get single object *
- *****************************************/
-
-// app.get('moviesApi', `/movies/${}`, function(req, res) {
-//   var params = {};
-//   if (userIdPresent && req.apiGateway) {
-//     params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
-//   } else {
-//     params[partitionKeyName] = req.params[partitionKeyName];
-//     try {
-//       params[partitionKeyName] = convertUrlType(req.params[partitionKeyName], partitionKeyType);
-//     } catch(err) {
-//       res.statusCode = 500;
-//       res.json({error: 'Wrong column type ' + err});
-//     }
-//   }
-//   if (hasSortKey) {
-//     try {
-//       params[sortKeyName] = convertUrlType(req.params[sortKeyName], sortKeyType);
-//     } catch(err) {
-//       res.statusCode = 500;
-//       res.json({error: 'Wrong column type ' + err});
-//     }
-//   }
-
-//   let getItemParams = {
-//     TableName: tableName,
-//     Key: params
-//   }
-
-//   dynamodb.get(getItemParams,(err, data) => {
-//     if(err) {
-//       res.statusCode = 500;
-//       res.json({error: 'Could not load items: ' + err.message});
-//     } else {
-//       if (data.Item) {
-//         res.json(data.Item);
-//       } else {
-//         res.json(data) ;
-//       }
-//     }
-//   });
-// });
-
-
 /************************************
 * HTTP put method for insert object *
 *************************************/

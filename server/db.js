@@ -51,5 +51,3 @@ class DB {
 }
 
 module.exports = DB
-
-// TODO: define extra DB table for movies + operations to create, read, update, delete

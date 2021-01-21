@@ -96,7 +96,6 @@ export default {
       return this.getAuthStatus;
     },
     logout() {
-      // await this.$auth.logout();
       this.clearUser(); // revokes JWT, deletes current user from local storage, toggles admin and auth
       if (this.$route.path !== "/") this.$router.push({ path: "/" });
     }

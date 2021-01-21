@@ -1,13 +1,6 @@
 <template>
   <v-app id="inspire">
     <v-container>
-      <!-- <v-row class="rows">
-          <template v-for="n in 4"> -->
-      <!-- <v-col :key="n" class="mt-2" cols="auto">
-              <strong>Category {{ n }}</strong>
-            </v-col> -->
-
-      <!-- <v-col v-for="j in 4" :key="`${n}${j}`" cols="auto"> -->
       <v-flex d-flex>
         <v-layout wrap>
           <v-flex md4 v-for="(movie, index) in getMovies()" :key="index">
@@ -92,10 +85,6 @@ export default {
     movieDetailsModal
   },
   computed: {
-    // fetchMovies() {
-    //   // this.movies = this.getMovies;
-    //   return this.getMovies;
-    // },
     current_movie() {
       return this.movies[this.curr_index];
     }

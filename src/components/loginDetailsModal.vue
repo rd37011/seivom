@@ -99,7 +99,6 @@ export default {
             this.addJwt(response.data.token);
 
             if (this.getJwt != null) {
-              this.$emit("loggedIn"); // emits event here? maybe we can leverage store value to toggle auth
               this.show = false;
               if (this.$route.params.nextUrl != null) {
                 this.$router.push(this.$route.params.nextUrl);

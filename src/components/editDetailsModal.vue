@@ -71,7 +71,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click.stop="saveMovieHandler(), show = false"
+            @click.stop="saveMovieHandler(), (show = false)"
           >
             Save
           </v-btn>
@@ -81,7 +81,12 @@
   </v-row>
 </template>
 <script>
-import { UPDATE_MOVIE_DETAILS, GET_ALL_MOVIES, GET_ADMIN_STATUS, FETCH_MOVIES } from "../store/index.js";
+import {
+  UPDATE_MOVIE_DETAILS,
+  GET_ALL_MOVIES,
+  GET_ADMIN_STATUS,
+  FETCH_MOVIES
+} from "../store/index.js";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "editDetailsModal",

@@ -96,37 +96,19 @@ export default new Vuex.Store({
         console.error(err);
       }
     },
-    async [ADD_NEW_MOVIE]() {
-      // const currentMovies = state.movies;
-      // currentMovies.push(payload);
-      // const body = {
-      //   year: "2020",
-      //   title: "The Big New Movie",
-      //   info: {
-      //     plot: "Nothing happens at all.",
-      //     rating: 0
-      //   }}
-      // const body = {
-      //   year: "2022",
-      //   title: "Some Unknown Movie",
-      //   info: {}
-      // };
+    async [ADD_NEW_MOVIE]({ state, commit }, payload) {
+      const currentMovies = state.movies;
       try {
         await API.post("moviesApi", "/movies", {
-          body: {
-            year: "2022",
-            title: "Some Unknown Movie",
-            info: {}
-          }
+          body: payload
         }).then(res => {
           console.log(res);
-          // const currentMovies = state.movies;
-          // currentMovies.splice(payload.index, 1);
+          currentMovies.push(res);
         });
       } catch (err) {
         console.error(err);
       }
-      // commit("SET_MOVIE_DETAILS", currentMovies);
+      commit("SET_MOVIE_DETAILS", currentMovies);
     },
     async [DELETE_MOVIE]({ state, commit }, payload) {
       try {
@@ -155,7 +137,7 @@ export default new Vuex.Store({
     [AUTHENTICATE_USER]({ commit }, payload) {
       // make API call to auth
       commit("SET_AUTH_STATUS", payload.auth);
-      commit("SET_ADMIN_STATUS", payload.user.is_admin); // change this based on new GET_USER action
+      commit("SET_ADMIN_STATUS", payload.user.is_admin);
     },
     [REGISTER_USER]({ commit }, payload) {
       commit("SET_REGISTER_USER", payload);
@@ -173,4 +155,3 @@ export default new Vuex.Store({
   // SET_ADMIN_STATUS
   modules: {}
 });
-// CREATE READ UPDATE DELETE
