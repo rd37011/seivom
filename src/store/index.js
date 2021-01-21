@@ -36,12 +36,11 @@ export default new Vuex.Store({
     isAuthenticated: false,
     jwt: null,
     isAdmin: false,
-    movies: null
+    movies: []
   },
   getters: {
     // GET_MOVIES
     [GET_ALL_MOVIES]: state => {
-      console.log("payload in getter: ", state.movies);
       return state.movies;
     },
     [GET_MOVIE]: (state, index) => {
@@ -62,7 +61,6 @@ export default new Vuex.Store({
   },
   mutations: {
     [SET_MOVIE_DETAILS]: (state, payload) => {
-      console.log("payload in mutation: ", payload);
       state.movies = payload;
     },
     [SET_AUTH_STATUS]: (state, payload) => {
@@ -82,28 +80,67 @@ export default new Vuex.Store({
       state.isAuthenticated = false;
       state.isAdmin = 0;
       state.jwt = null;
-      console.log("updated state: should be logged out:", state);
     }
   },
   actions: {
     // UPDATE_MOVIE_DETAILS
-    [UPDATE_MOVIE_DETAILS]({ state, commit }, index, details) {
-      const currentMovies = state.movies;
-      currentMovies.splice(index, 1, details);
-      // update details in API call. maybe another action
-      commit("SET_MOVIE_DETAILS", currentMovies);
+    async [UPDATE_MOVIE_DETAILS]({ commit }, details) {
+      try {
+        await API.put("moviesApi", "/movies", {
+          body: details
+        }).then(res => {
+          console.log("Update succeeded with response: ", res);
+          commit("FETCH_MOVIES");
+        });
+      } catch (err) {
+        console.error(err);
+      }
     },
-    [ADD_NEW_MOVIE]({ state, commit }, payload) {
-      const currentMovies = state.movies;
-      currentMovies.push(payload);
-      // update details in API call. maybe another action
-      commit("SET_MOVIE_DETAILS", currentMovies);
+    async [ADD_NEW_MOVIE]() {
+      // const currentMovies = state.movies;
+      // currentMovies.push(payload);
+      // const body = {
+      //   year: "2020",
+      //   title: "The Big New Movie",
+      //   info: {
+      //     plot: "Nothing happens at all.",
+      //     rating: 0
+      //   }}
+      // const body = {
+      //   year: "2022",
+      //   title: "Some Unknown Movie",
+      //   info: {}
+      // };
+      try {
+        await API.post("moviesApi", "/movies", {
+          body: {
+            year: "2022",
+            title: "Some Unknown Movie",
+            info: {}
+          }
+        }).then(res => {
+          console.log(res);
+          // const currentMovies = state.movies;
+          // currentMovies.splice(payload.index, 1);
+        });
+      } catch (err) {
+        console.error(err);
+      }
+      // commit("SET_MOVIE_DETAILS", currentMovies);
     },
-    [DELETE_MOVIE]({ state, commit }, index) {
-      const currentMovies = state.movies;
-      currentMovies.splice(index, 1);
-      // update details in API call. maybe another action
-      commit("SET_MOVIE_DETAILS", currentMovies);
+    async [DELETE_MOVIE]({ state, commit }, payload) {
+      try {
+        await API.del("moviesApi", "/movies", {
+          body: payload
+        }).then(res => {
+          console.log(res);
+          const currentMovies = state.movies;
+          currentMovies.splice(payload.index, 1);
+          commit("SET_MOVIE_DETAILS", currentMovies);
+        });
+      } catch (err) {
+        console.error(err);
+      }
     },
     async [FETCH_MOVIES]({ commit }) {
       try {

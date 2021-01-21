@@ -47,7 +47,8 @@ import {
   ADD_JWT,
   AUTHENTICATE_USER,
   REGISTER_USER,
-  GET_JWT
+  GET_JWT,
+  LOGOUT
 } from "../store/index.js";
 export default {
   name: "loginDetailsModal",
@@ -75,12 +76,14 @@ export default {
     ...mapActions({
       addJwt: ADD_JWT,
       authenticateUser: AUTHENTICATE_USER,
-      addUser: REGISTER_USER
+      addUser: REGISTER_USER,
+      clearUserData: LOGOUT
     }),
     ...mapGetters({
       getJwt: GET_JWT
     }),
     login(e) {
+      this.clearUserData();
       e.preventDefault();
       if (this.password.length > 0) {
         this.$http

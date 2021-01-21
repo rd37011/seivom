@@ -77,7 +77,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-seivomapp-dev-175328-deployment",
-          "S3Key": "amplify-builds/seivomLambda-425867574a2f30596f46-build.zip"
+          "S3Key": "amplify-builds/seivomLambda-4e676977464839644a67-build.zip"
         }
       }
     },

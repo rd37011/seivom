@@ -8,20 +8,20 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <!-- <v-col cols="12">
+              <v-col cols="12">
                 {{ moviedetails.title }}
               </v-col>
               <v-col cols="12">
                 {{ moviedetails.info.plot }}
               </v-col>
               <v-col cols="12">
-                {{ moviedetails.info.actors }}
-                Directed by {{ moviedetails.info.directors }}
+                Starring {{ moviedetails.info.actors }} Directed by
+                {{ moviedetails.info.directors }}
               </v-col>
-              <v-col cols="12" sm="6" md="4">{{ moviedetails.info.genre }}</v-col>
               <v-col cols="12" sm="6" md="4">{{
-                moviedetails.year
-              }}</v-col> -->
+                moviedetails.info.genre
+              }}</v-col>
+              <v-col cols="12" sm="6" md="4">{{ moviedetails.year }}</v-col>
               <v-col cols="12" sm="6" md="4">English</v-col>
               <v-col cols="12" sm="6" md="4"
                 >User Ratings
@@ -39,9 +39,15 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click.stop="editModalShow = true">
-            Edit
-          </v-btn>
+          <div v-if="getIsAdmin()">
+            <v-btn
+              color="blue darken-1"
+              text
+              @click.stop="editModalShow = true"
+            >
+              Edit
+            </v-btn>
+          </div>
           <v-btn color="blue darken-1" text @click.stop="show = false">
             Close
           </v-btn>
@@ -49,12 +55,18 @@
       </v-card>
     </v-dialog>
     <div ref="editDetails">
-      <editDetailsModal v-model="editModalShow" />
+      <editDetailsModal
+        v-model="editModalShow"
+        :year="moviedetails.year"
+        :title="moviedetails.title"
+      />
     </div>
   </v-row>
 </template>
 <script>
 import editDetailsModal from "./editDetailsModal";
+import { DELETE_MOVIE, GET_ADMIN_STATUS } from "../store/index.js";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "movieDetailsModal",
   props: {
@@ -78,6 +90,14 @@ export default {
         return this.$emit("input", value);
       }
     }
+  },
+  methods: {
+    ...mapActions({
+      deleteMovie: DELETE_MOVIE
+    }),
+    ...mapGetters({
+      getIsAdmin: GET_ADMIN_STATUS
+    })
   }
 };
 </script>

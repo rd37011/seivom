@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is the landing page.</h1>
+    <h1>Prepare to have your movie cravings satiated.</h1>
   </div>
 </template>
 <script>

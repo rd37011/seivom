@@ -12,7 +12,7 @@
         <v-layout wrap>
           <v-flex md4 v-for="(movie, index) in getMovies()" :key="index">
             <v-card class="mx-auto" max-width="344">
-              <v-img :srcset="movie.image_url" height="200px"></v-img>
+              <v-img src="../assets/images.jpeg" height="200px"></v-img>
 
               <v-card-title>
                 {{ movie.title }}
@@ -22,7 +22,7 @@
                 {{ movie.info.genres }}
               </v-card-subtitle>
               <v-card-subtitle>
-                {{ movie.info.year }}
+                {{ movie.year }}
               </v-card-subtitle>
 
               <v-card-actions>
@@ -35,6 +35,15 @@
                 >
                   Details
                 </v-btn>
+                <div v-if="getIsAdmin()">
+                  <v-btn
+                    color="orange lighten-2"
+                    text
+                    @click.stop="deleteMovieHandler(movie)"
+                  >
+                    Delete
+                  </v-btn>
+                </div>
 
                 <v-spacer></v-spacer>
 
@@ -44,29 +53,10 @@
                   }}</v-icon>
                 </v-btn>
               </v-card-actions>
-              <!-- 
-                <v-expand-transition>
-                  <div v-show="show">
-                    <v-divider></v-divider>
-
-                    <v-card-text>
-                      I'm a thing. But, like most politicians, he promised more
-                      than he could deliver. You won't have time for sleeping,
-                      soldier, not with all the bed making you'll be doing. Then
-                      we'll go with that data file! Hey, you add a one and two
-                      zeros to that or we walk! You're going to do his laundry?
-                      I've got to find a way to escape.
-                    </v-card-text>
-                  </div>
-                </v-expand-transition> -->
             </v-card>
           </v-flex>
         </v-layout>
       </v-flex>
-
-      <!-- </v-col>
-          </template>
-        </v-row> -->
     </v-container>
     <div ref="detailsDialog">
       <movieDetailsModal
@@ -79,7 +69,14 @@
 <script>
 import movieDetailsModal from "../components/movieDetailsModal";
 import { mapGetters, mapActions } from "vuex";
-import { GET_ALL_MOVIES, GET_MOVIE, FETCH_MOVIES } from "../store/index.js";
+import {
+  GET_ALL_MOVIES,
+  GET_MOVIE,
+  FETCH_MOVIES,
+  GET_ADMIN_STATUS,
+  GET_JWT,
+  DELETE_MOVIE
+} from "../store/index.js";
 export default {
   data: () => ({
     show: false,
@@ -106,10 +103,13 @@ export default {
   methods: {
     ...mapGetters({
       getMovies: GET_ALL_MOVIES,
-      getMovie: GET_MOVIE
+      getMovie: GET_MOVIE,
+      getIsAdmin: GET_ADMIN_STATUS,
+      getJwt: GET_JWT
     }),
     ...mapActions({
-      fetchMovies: FETCH_MOVIES
+      fetchAllMovies: FETCH_MOVIES,
+      deleteMovie: DELETE_MOVIE
     }),
     showDialog() {
       this.$refs.detailsDialog.show();
@@ -119,9 +119,18 @@ export default {
       this.detailsModalShow = true;
       console.log(index);
     },
-    async created() {
-      await this.fetchMovies();
-      console.log("movies: ", this.movies);
+    deleteMovieHandler(movie) {
+      const body = {
+        year: movie.year,
+        title: movie.title
+      };
+      console.log(this.getIsAdmin());
+      if (this.getIsAdmin() === 1 && this.getJwt() != null) {
+        this.deleteMovie(body);
+      }
+    },
+    created() {
+      this.getMovies();
     }
   }
 };

@@ -68,7 +68,12 @@
 <script>
 import loginDetailsModal from "./components/loginDetailsModal";
 import { mapGetters, mapActions } from "vuex";
-import { GET_JWT, GET_AUTH_STATUS, LOGOUT } from "./store/index.js";
+import {
+  GET_JWT,
+  GET_AUTH_STATUS,
+  LOGOUT,
+  FETCH_MOVIES
+} from "./store/index.js";
 
 export default {
   name: "App",
@@ -84,7 +89,8 @@ export default {
       getAuthStatus: GET_AUTH_STATUS
     }),
     ...mapActions({
-      clearUser: LOGOUT
+      clearUser: LOGOUT,
+      fetchMovies: FETCH_MOVIES
     }),
     isAuthenticated() {
       return this.getAuthStatus;
@@ -95,9 +101,9 @@ export default {
       if (this.$route.path !== "/") this.$router.push({ path: "/" });
     }
   },
-  // created() {
-  //   this.isAuthenticated();
-  // },
+  created() {
+    this.fetchMovies();
+  },
   components: {
     loginDetailsModal
     // landingPage

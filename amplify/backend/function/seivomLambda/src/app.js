@@ -106,18 +106,21 @@ app.get("/movies", function(req, res) { //get all
 *************************************/
 
 app.put('/movies', function(req, res) { //update
-
+  const { year, title, info } = req.body;
   const params = {
     TableName: tableName,
     Key:{
-        "year": req.body.year,
-        "title": req.body.title,
+        "year": year,
+        "title": title,
     },
-    UpdateExpression: "set info.rating = :r, info.plot=:p, info.actors=:a",
+    UpdateExpression: "set info.rating = :r, info.plot=:p, info.castMem=:c, info.genre=:g, info.lang=:l",
     ExpressionAttributeValues:{ //replace for changedParams in integration stg
-        ":r":5.5,
-        ":p":"Everything happens all at once.",
-        ":a":["Larry", "Moe", "Curly"]
+        ":r":info.rating,
+        ":p":info.plot,
+        ":c":info.castMem,
+        ":g":info.genre,
+        ":l":info.lang,
+
     },
     ReturnValues:"UPDATED_NEW"
 };
@@ -137,14 +140,15 @@ app.put('/movies', function(req, res) { //update
 *************************************/
 
 app.post('/movies', function(req, res) {
-
+  const { year, title, info } = req.body;
   var params = {
-    TableName:table,
-    Item:{
-        "year": req.body.year,
-        "title": req.body.title,
-        "info": req.body.info,
-    }
+    TableName: tableName,
+    Item: {
+      "year":  year,
+      "title": title,
+      "info":  info
+  }
+
 };
   dynamodb.put(params, (err, data) => {
     if(err) {
@@ -161,12 +165,12 @@ app.post('/movies', function(req, res) {
 ***************************************/
 
 app.delete('/movies', function(req, res) {
-
+  const { year, title } = req.body;
   const params = {
     TableName: tableName,
     Key:{
-        "year": req.body.year,
-        "title": req.body.title
+      "year":  year,
+      "title": title,
     },
   }
   dynamodb.delete(params, (err, data)=> {

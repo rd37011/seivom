@@ -50,15 +50,15 @@ const router = new Router({
       //   next((await isInGroup("Users")) || (await isInGroup("Admins")));
       // }
     },
-    {
-      path: "*",
-      beforeEnter: (to, from, next) => {
-        next("/");
-      },
-      meta: {
-        guest: true
-      }
-    },
+    // {
+    //   path: "*",
+    //   beforeEnter: (to, from, next) => {
+    //     next("/");
+    //   },
+    //   meta: {
+    //     guest: true
+    //   }
+    // },
     // {
     //   path: "login/callback",
     //   component: Auth.handleCallback()
@@ -85,18 +85,7 @@ const router = new Router({
     }
   ]
 });
-// const onAuthRequired = async (from, to, next) => {
-//   if (
-//     from.matched.some(record => record.meta.requiresAuth) &&
-//     !(await Vue.prototype.$auth.isAuthenticated())
-//   ) {
-//     // Navigate to custom login page
-//     next({ path: "/" });
-//   } else {
-//     next();
-//   }
-// };
-// router.beforeEach(onAuthRequired);
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth) && to.path !== "/") {
     if (store.state.jwt === null) {
@@ -105,7 +94,6 @@ router.beforeEach((to, from, next) => {
         params: { nextUrl: to.fullPath }
       });
     } else {
-      // console.log(JSON.parse(store.state.user));
       let user = store.state.user;
       if (to.matched.some(record => record.meta.is_admin)) {
         if (user.is_admin == 1) {
