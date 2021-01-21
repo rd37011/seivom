@@ -19,10 +19,13 @@ yarn build
 ```
 yarn server 
 
-### Lints and fixes files
+### Must run both node server and yarn serve for auth. All other resources (Lambda, DB, APIGW) in cloud.
+
+```
+
+### Cleans code and makes it ~pretty~:
 ```
 yarn lint
 ```
-### Must run both node server and yarn serve for auth. All other resources (Lambda, DB, APIGW) in cloud.
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
