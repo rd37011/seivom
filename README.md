@@ -15,15 +15,14 @@ yarn serve
 yarn build
 ```
 
-### Run your unit tests
+### Run node server for auth:
 ```
-yarn test:unit
-```
+yarn server 
 
 ### Lints and fixes files
 ```
 yarn lint
 ```
-
+### Must run both node server and yarn serve for auth. All other resources (Lambda, DB, APIGW) in cloud.
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
