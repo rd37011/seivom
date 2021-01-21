@@ -19,7 +19,7 @@ yarn build
 ```
 yarn server 
 
-### Must run both node server and yarn serve for auth. All other resources (Lambda, DB, APIGW) in cloud.
+--Must run both node server and yarn serve for auth. All other resources (Lambda, DB, APIGW) in cloud.
 
 ```
 
