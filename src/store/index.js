@@ -89,7 +89,7 @@ export default new Vuex.Store({
         await API.put("moviesApi", "/movies", {
           body: details
         }).then(res => {
-          console.log("Update succeeded with response: ", res);
+          console.log("response from update: ", res);
           commit("FETCH_MOVIES");
         });
       } catch (err) {
@@ -102,7 +102,7 @@ export default new Vuex.Store({
         await API.post("moviesApi", "/movies", {
           body: payload
         }).then(res => {
-          console.log(res);
+          console.log("response from add: ",res);
           currentMovies.push(res);
         });
       } catch (err) {
@@ -115,7 +115,7 @@ export default new Vuex.Store({
         await API.del("moviesApi", "/movies", {
           body: payload
         }).then(res => {
-          console.log(res);
+          console.log("response from delete: ",res);
           const currentMovies = state.movies;
           currentMovies.splice(payload.index, 1);
           commit("SET_MOVIE_DETAILS", currentMovies);
@@ -127,7 +127,7 @@ export default new Vuex.Store({
     async [FETCH_MOVIES]({ commit }) {
       try {
         await API.get("moviesApi", "/movies").then(res => {
-          console.log("response: ", res);
+          console.log("response from fetch: ", res);
           commit("SET_MOVIE_DETAILS", res);
         });
       } catch (err) {

@@ -49,7 +49,6 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth) && to.path !== "/") {
-    console.log("to: ", to, "from :", from, store.state.jwt === null);
     if (store.state.jwt === null) {
       next({
         path: "/",

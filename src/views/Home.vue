@@ -39,12 +39,6 @@
                 </div>
 
                 <v-spacer></v-spacer>
-
-                <v-btn icon>
-                  <v-icon>{{
-                    show ? "mdi-chevron-up" : "mdi-chevron-down"
-                  }}</v-icon>
-                </v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -106,14 +100,12 @@ export default {
     detailsHandler(index) {
       this.curr_index = index;
       this.detailsModalShow = true;
-      console.log(index);
     },
     deleteMovieHandler(movie) {
       const body = {
         year: movie.year,
         title: movie.title
       };
-      console.log(this.getIsAdmin());
       if (this.getIsAdmin() === 1 && this.getJwt() != null) {
         this.deleteMovie(body);
       }

@@ -102,6 +102,21 @@ export default {
   },
   created() {
     this.fetchMovies();
+    // Read the status information in sessionStorage when the page loads
+    if (sessionStorage.getItem("store")) {
+      this.$store.replaceState(
+        Object.assign(
+          {},
+          this.$store.state,
+          JSON.parse(sessionStorage.getItem("store"))
+        )
+      );
+    }
+
+    // Save the information in vuex to sessionStorage when the page is refreshed
+    window.addEventListener("beforeunload", () => {
+      sessionStorage.setItem("store", JSON.stringify(this.$store.state));
+    });
   },
   components: {
     loginDetailsModal
