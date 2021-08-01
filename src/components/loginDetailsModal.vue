@@ -48,19 +48,19 @@ import {
   AUTHENTICATE_USER,
   REGISTER_USER,
   GET_JWT,
-  LOGOUT
+  LOGOUT,
 } from "../store/index.js";
 export default {
   name: "loginDetailsModal",
   props: {
-    value: Boolean
+    value: Boolean,
   },
   data: () => ({
     username: "",
     password: "",
     response: {},
     is_admin: false,
-    is_correct: true
+    is_correct: true,
   }),
   computed: {
     show: {
@@ -69,18 +69,18 @@ export default {
       },
       set(value) {
         return this.$emit("input", value);
-      }
-    }
+      },
+    },
   },
   methods: {
     ...mapActions({
       addJwt: ADD_JWT,
       authenticateUser: AUTHENTICATE_USER,
       addUser: REGISTER_USER,
-      clearUserData: LOGOUT
+      clearUserData: LOGOUT,
     }),
     ...mapGetters({
-      getJwt: GET_JWT
+      getJwt: GET_JWT,
     }),
     login(e) {
       this.clearUserData();
@@ -89,9 +89,9 @@ export default {
         this.$http
           .post("http://localhost:3000/login", {
             user_name: this.username,
-            password: this.password
+            password: this.password,
           })
-          .then(response => {
+          .then((response) => {
             this.is_admin = response.data.user.is_admin;
             const responseObj = { ...response.data };
             this.authenticateUser(responseObj);
@@ -107,7 +107,7 @@ export default {
               }
             }
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.error(error.response);
           });
       }
@@ -115,8 +115,8 @@ export default {
     register() {
       this.dialog = false;
       this.$router.push("/register");
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

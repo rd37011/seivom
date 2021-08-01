@@ -38,7 +38,7 @@
                     'Classic',
                     'Suspense',
                     'Horror',
-                    'Other'
+                    'Other',
                   ]"
                   label="Genre"
                   multiple
@@ -85,7 +85,7 @@ import {
   UPDATE_MOVIE_DETAILS,
   GET_ALL_MOVIES,
   GET_ADMIN_STATUS,
-  FETCH_MOVIES
+  FETCH_MOVIES,
 } from "../store/index.js";
 import { mapActions, mapGetters } from "vuex";
 export default {
@@ -94,16 +94,16 @@ export default {
     //   obj: Object,
     title: String,
     year: String,
-    value: Boolean
+    value: Boolean,
   },
-  data: function() {
+  data: function () {
     return {
       select: "",
       valid: true,
       plot: "",
       castMem: "",
       lang: "",
-      rating: 3.5
+      rating: 3.5,
     };
   },
   computed: {
@@ -113,17 +113,17 @@ export default {
       },
       set(value) {
         return this.$emit("input", value);
-      }
-    }
+      },
+    },
   },
   methods: {
     ...mapActions({
       updateMovieDetails: UPDATE_MOVIE_DETAILS,
-      fetchMovies: FETCH_MOVIES
+      fetchMovies: FETCH_MOVIES,
     }),
     ...mapGetters({
       getIsAdmin: GET_ADMIN_STATUS,
-      getMovies: GET_ALL_MOVIES
+      getMovies: GET_ALL_MOVIES,
     }),
     async saveMovieHandler() {
       const req = {
@@ -134,8 +134,8 @@ export default {
           plot: this.plot,
           castMem: this.castMem,
           rating: this.rating,
-          genre: this.select
-        }
+          genre: this.select,
+        },
       };
       try {
         await this.updateMovieDetails(req).then(this.fetchMovies());
@@ -143,8 +143,8 @@ export default {
       } catch (err) {
         console.log(err);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped></style>

@@ -12,7 +12,9 @@
               </v-card-title>
 
               <v-card-subtitle>
-                {{ movie.info.genres }}
+                  <span v-for="genre in movie.info.genres" :key="genre">
+                    {{ genre }}
+                  </span>
               </v-card-subtitle>
               <v-card-subtitle>
                 {{ movie.year }}
@@ -62,7 +64,7 @@ import {
   FETCH_MOVIES,
   GET_ADMIN_STATUS,
   GET_JWT,
-  DELETE_MOVIE
+  DELETE_MOVIE,
 } from "../store/index.js";
 export default {
   data: () => ({
@@ -73,26 +75,26 @@ export default {
     isAdmin: false,
     movies: [],
     movieDetails: {},
-    curr_index: 0
+    curr_index: 0,
   }),
   components: {
-    movieDetailsModal
+    movieDetailsModal,
   },
   computed: {
     current_movie() {
       return this.movies[this.curr_index];
-    }
+    },
   },
   methods: {
     ...mapGetters({
       getMovies: GET_ALL_MOVIES,
       getMovie: GET_MOVIE,
       getIsAdmin: GET_ADMIN_STATUS,
-      getJwt: GET_JWT
+      getJwt: GET_JWT,
     }),
     ...mapActions({
       fetchAllMovies: FETCH_MOVIES,
-      deleteMovie: DELETE_MOVIE
+      deleteMovie: DELETE_MOVIE,
     }),
     showDialog() {
       this.$refs.detailsDialog.show();
@@ -104,7 +106,7 @@ export default {
     deleteMovieHandler(movie) {
       const body = {
         year: movie.year,
-        title: movie.title
+        title: movie.title,
       };
       if (this.getIsAdmin() === 1 && this.getJwt() != null) {
         this.deleteMovie(body);
@@ -112,8 +114,8 @@ export default {
     },
     created() {
       this.getMovies();
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped></style>

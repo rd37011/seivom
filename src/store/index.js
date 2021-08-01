@@ -36,28 +36,28 @@ export default new Vuex.Store({
     isAuthenticated: false,
     jwt: null,
     isAdmin: false,
-    movies: []
+    movies: [],
   },
   getters: {
     // GET_MOVIES
-    [GET_ALL_MOVIES]: state => {
+    [GET_ALL_MOVIES]: (state) => {
       return state.movies;
     },
     [GET_MOVIE]: (state, index) => {
       return state.movies[index];
     },
-    [GET_AUTH_STATUS]: state => {
+    [GET_AUTH_STATUS]: (state) => {
       return state.isAuthenticated;
     },
-    [GET_ADMIN_STATUS]: state => {
+    [GET_ADMIN_STATUS]: (state) => {
       return state.isAdmin;
     },
-    [GET_JWT]: state => {
+    [GET_JWT]: (state) => {
       return state.jwt;
     },
-    [GET_USER]: state => {
+    [GET_USER]: (state) => {
       return state.user;
-    }
+    },
   },
   mutations: {
     [SET_MOVIE_DETAILS]: (state, payload) => {
@@ -75,20 +75,20 @@ export default new Vuex.Store({
     [SET_JWT]: (state, payload) => {
       state.jwt = payload;
     },
-    [SET_LOGOUT]: state => {
+    [SET_LOGOUT]: (state) => {
       state.user = {}; // clear user, jwt, auth status, admin status
       state.isAuthenticated = false;
       state.isAdmin = 0;
       state.jwt = null;
-    }
+    },
   },
   actions: {
     // UPDATE_MOVIE_DETAILS
     async [UPDATE_MOVIE_DETAILS]({ commit }, details) {
       try {
         await API.put("moviesApi", "/movies", {
-          body: details
-        }).then(res => {
+          body: details,
+        }).then((res) => {
           console.log("response from update: ", res);
           commit("FETCH_MOVIES");
         });
@@ -100,9 +100,9 @@ export default new Vuex.Store({
       const currentMovies = state.movies;
       try {
         await API.post("moviesApi", "/movies", {
-          body: payload
-        }).then(res => {
-          console.log("response from add: ",res);
+          body: payload,
+        }).then((res) => {
+          console.log("response from add: ", res);
           currentMovies.push(res);
         });
       } catch (err) {
@@ -113,9 +113,9 @@ export default new Vuex.Store({
     async [DELETE_MOVIE]({ state, commit }, payload) {
       try {
         await API.del("moviesApi", "/movies", {
-          body: payload
-        }).then(res => {
-          console.log("response from delete: ",res);
+          body: payload,
+        }).then((res) => {
+          console.log("response from delete: ", res);
           const currentMovies = state.movies;
           currentMovies.splice(payload.index, 1);
           commit("SET_MOVIE_DETAILS", currentMovies);
@@ -126,7 +126,7 @@ export default new Vuex.Store({
     },
     async [FETCH_MOVIES]({ commit }) {
       try {
-        await API.get("moviesApi", "/movies").then(res => {
+        await API.get("moviesApi", "/movies").then((res) => {
           console.log("response from fetch: ", res);
           commit("SET_MOVIE_DETAILS", res);
         });
@@ -147,11 +147,11 @@ export default new Vuex.Store({
     },
     [LOGOUT]({ commit }) {
       commit("SET_LOGOUT");
-    }
+    },
   },
   // DELETE_MOVIE
   // ADD_NEW_MOVIE
   // SET_AUTHENTICATION_STATUS
   // SET_ADMIN_STATUS
-  modules: {}
+  modules: {},
 });

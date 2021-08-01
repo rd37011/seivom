@@ -15,14 +15,14 @@ const router = new Router({
       name: "landingPage",
       component: landingPage,
       meta: {
-        guest: true
-      }
+        guest: true,
+      },
     },
     {
       path: "/home",
       name: "home",
       component: Home,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
     },
     {
       path: "/about",
@@ -31,32 +31,35 @@ const router = new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       meta: {
-        guest: true
+        guest: true,
       },
       component: () =>
-        import(/* webpackChunkName: "about" */ "../views/About.vue")
+        import(/* webpackChunkName: "about" */ "../views/About.vue"),
     },
     {
       path: "/register",
       name: "Register",
       component: Register,
       meta: {
-        guest: true
-      }
-    }
-  ]
+        guest: true,
+      },
+    },
+  ],
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth) && to.path !== "/") {
+  if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    to.path !== "/"
+  ) {
     if (store.state.jwt === null) {
       next({
         path: "/",
-        params: { nextUrl: to.fullPath }
+        params: { nextUrl: to.fullPath },
       });
     } else {
       let user = store.state.user;
-      if (to.matched.some(record => record.meta.is_admin)) {
+      if (to.matched.some((record) => record.meta.is_admin)) {
         if (user.is_admin == 1) {
           next();
         } else {
@@ -66,7 +69,7 @@ router.beforeEach((to, from, next) => {
         next();
       }
     }
-  } else if (to.matched.some(record => record.meta.guest)) {
+  } else if (to.matched.some((record) => record.meta.guest)) {
     if (store.state.jwt == null) {
       next();
     } else {

@@ -15,8 +15,15 @@
                 {{ moviedetails.info.plot }}
               </v-col>
               <v-col cols="12">
-                Starring {{ moviedetails.info.actors }} Directed by
-                {{ moviedetails.info.directors }}
+                Starring 
+                <span v-for="actor in moviedetails.info.actors" :key="actor">
+                    {{ actor }},
+                </span>
+                
+                Directed by
+                  <span v-for="director in moviedetails.info.directors" :key="director">
+                    {{ director }}
+                  </span>
               </v-col>
               <v-col cols="12" sm="6" md="4">{{
                 moviedetails.info.genre
@@ -72,14 +79,14 @@ export default {
   props: {
     //   obj: Object,
     moviedetails: Object,
-    value: Boolean
+    value: Boolean,
   },
   components: {
-    editDetailsModal
+    editDetailsModal,
   },
   data: () => ({
     editModalShow: false,
-    rating: 0
+    rating: 0,
   }),
   computed: {
     show: {
@@ -88,17 +95,17 @@ export default {
       },
       set(value) {
         return this.$emit("input", value);
-      }
-    }
+      },
+    },
   },
   methods: {
     ...mapActions({
-      deleteMovie: DELETE_MOVIE
+      deleteMovie: DELETE_MOVIE,
     }),
     ...mapGetters({
-      getIsAdmin: GET_ADMIN_STATUS
-    })
-  }
+      getIsAdmin: GET_ADMIN_STATUS,
+    }),
+  },
 };
 </script>
 <style>

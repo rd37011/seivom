@@ -14,10 +14,7 @@
         {
           "category": "storage",
           "resourceName": "db",
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
+          "attributes": ["Name", "Arn"],
           "attributeEnvMap": {
             "Name": "TABLE_NAME",
             "Arn": "TABLE_ARN"
@@ -35,10 +32,7 @@
         {
           "category": "function",
           "resourceName": "seivomLambda",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
+          "attributes": ["Name", "Arn"]
         }
       ]
     }

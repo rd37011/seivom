@@ -72,7 +72,7 @@ import {
   GET_JWT,
   GET_AUTH_STATUS,
   LOGOUT,
-  FETCH_MOVIES
+  FETCH_MOVIES,
 } from "./store/index.js";
 
 export default {
@@ -81,16 +81,16 @@ export default {
     title: "Vue Groups",
     drawer: false,
     group: null,
-    loginModalShow: false
+    loginModalShow: false,
   }),
   methods: {
     ...mapGetters({
       getJwt: GET_JWT,
-      getAuthStatus: GET_AUTH_STATUS
+      getAuthStatus: GET_AUTH_STATUS,
     }),
     ...mapActions({
       clearUser: LOGOUT,
-      fetchMovies: FETCH_MOVIES
+      fetchMovies: FETCH_MOVIES,
     }),
     isAuthenticated() {
       return this.getAuthStatus;
@@ -98,7 +98,7 @@ export default {
     logout() {
       this.clearUser(); // revokes JWT, deletes current user from local storage, toggles admin and auth
       if (this.$route.path !== "/") this.$router.push({ path: "/" });
-    }
+    },
   },
   created() {
     this.fetchMovies();
@@ -119,9 +119,9 @@ export default {
     });
   },
   components: {
-    loginDetailsModal
+    loginDetailsModal,
     // landingPage
-  }
+  },
 };
 </script>
 <style lang="scss">

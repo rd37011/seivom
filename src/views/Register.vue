@@ -50,9 +50,7 @@
         </div>
 
         <div>
-          <v-btn type="submit" @click="handleSubmit">
-            Register
-          </v-btn>
+          <v-btn type="submit" @click="handleSubmit"> Register </v-btn>
         </div>
       </v-container>
     </v-form>
@@ -64,7 +62,7 @@ import {
   ADD_JWT,
   AUTHENTICATE_USER,
   REGISTER_USER,
-  GET_JWT
+  GET_JWT,
 } from "../store/index.js";
 export default {
   props: ["nextUrl"],
@@ -79,23 +77,23 @@ export default {
       checkbox: false,
       is_admin: null,
       nameRules: [
-        v => !!v || "Name is required",
-        v => v.length <= 10 || "Name must be less than 10 characters"
+        (v) => !!v || "Name is required",
+        (v) => v.length <= 10 || "Name must be less than 10 characters",
       ],
       rules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters"
-      }
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
+      },
     };
   },
   methods: {
     ...mapActions({
       addJwt: ADD_JWT,
       authenticateUser: AUTHENTICATE_USER,
-      addUser: REGISTER_USER
+      addUser: REGISTER_USER,
     }),
     ...mapGetters({
-      getJwt: GET_JWT
+      getJwt: GET_JWT,
     }),
     handleSubmit(e) {
       e.preventDefault();
@@ -111,9 +109,9 @@ export default {
             name: this.name,
             user_name: this.username,
             password: this.password,
-            is_admin: this.checkbox
+            is_admin: this.checkbox,
           })
-          .then(response => {
+          .then((response) => {
             const responseObj = { ...response.data };
             this.authenticateUser(responseObj);
             this.addUser(responseObj.user);
@@ -128,7 +126,7 @@ export default {
               }
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(error);
           });
       } else {
@@ -137,8 +135,8 @@ export default {
 
         return alert("Passwords do not match");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

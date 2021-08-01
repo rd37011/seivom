@@ -1,7 +1,7 @@
 {
-    "tableName": "movies",
-    "partitionKeyName": "year",
-    "partitionKeyType": "S",
-    "sortKeyName": "title",
-    "sortKeyType": "S"
+  "tableName": "movies",
+  "partitionKeyName": "year",
+  "partitionKeyType": "S",
+  "sortKeyName": "title",
+  "sortKeyType": "S"
 }
